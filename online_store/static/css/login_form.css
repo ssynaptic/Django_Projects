@@ -1,0 +1,28 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html body {
+	display: flex;
+	/* flex-direction: row; */
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+}
+
+p.input-label {
+	margin: 0;
+	padding: 0;
+	color: red;
+}
+
+input.input-widget {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+input.input-widget::placeholder {
+	text-align: center;
+}

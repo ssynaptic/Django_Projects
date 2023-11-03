@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Log In</title>
+	<title>Sign Up</title>
 	{% load django_bootstrap5 %}
 	{% bootstrap_css %}
 	{% bootstrap_javascript %}
 	{% bootstrap_messages %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/login_form.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/signup_form.css' %}">
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<!-- FONTS -->
@@ -17,14 +17,13 @@
 	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&display=swap" rel="stylesheet">
 </head>
 <body>
-	<!--<script>swal({title: "Failed", "text": "Failed to log in, please verify your credentials", "icon": "error", "button": "Retry"})</script>-->
 	<div class="form-container">
 		<div class="main-message-container">
 			<p class="main-message">
-				Welcome Again User
+				Sign up to enjoy all the features
 			</p>
 		</div>
-		<form class="main-form" action="/accounts/login/" method="POST">
+		<form class="main-form" action="/accounts/signup/" method="POST">
 			{% csrf_token %}
 			{% for field in form %}
 				<p class="input-label">{{ field.label }}</p>
@@ -32,7 +31,7 @@
 				{{ field }}
 				<br>
 			{% endfor %}
-			<input class="btn btn-primary submit-button" type="submit" value="Log In"/>
+			<input class="btn btn-primary submit-button" type="submit" value="Sign Up"/>
 		</form>
 	</div>
 </body>

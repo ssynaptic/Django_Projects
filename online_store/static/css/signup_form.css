@@ -34,8 +34,6 @@ div.form-container {
 }
 
 div.main-message-container {
-	background: #000000 url("/static/img/main_message_background.jpg") no-repeat;
-	opacity: 0.5;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -48,7 +46,6 @@ div.main-message-container {
 }
 
 p.main-message {
-	opacity: 1;
 	line-height: 30px;
 }
 form.main-form {

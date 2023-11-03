@@ -7,20 +7,35 @@
 	{% bootstrap_css %}
 	{% bootstrap_javascript %}
 	{% bootstrap_messages %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/login_form.css' %}">
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<head/>
+
+	<!-- FONTS -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+</head>
 <body>
-	<form action="/accounts/login/" method="POST">
-		{% csrf_token %}
-		{% for field in form %}
-			<p class="input-label">{{ field.label }}</p>
-			<br>
-			{{ field }}
-			<br>
-		{% endfor %}
-		<input class="btn btn-primary" type="submit" value="Log In"/>
-	</form>
-	<script>swal({title: "Hello Friend", "text": "You are on the login", "icon": "success", "button": "Aww yiss!"})</script>
+	{% comment %} {% if failed_login %}
+	<script>swal({title: "Failed", "text": "Failed to log in, please verify your credentials", "icon": "error", "button": "Retry"})</script>
+	{% endif %} {% endcomment %}
+	<div class="form-container">
+		<div class="main-message-container">
+			<p class="main-message">
+				Welcome Again User
+			</p>
+		</div>
+		<form class="main-form" action="/accounts/login/" method="POST">
+			{% csrf_token %}
+			{% for field in form %}
+				<p class="input-label">{{ field.label }}</p>
+				<br>
+				{{ field }}
+				<br>
+			{% endfor %}
+			<input class="btn btn-primary submit-button" type="submit" value="Log In"/>
+		</form>
+	</div>
 </body>
-<html/>
+</html>

@@ -19,7 +19,8 @@ def get_login_data(request):
 
     return render(request=request,
                   template_name="login_form.html",
-                  context={"form": form})
+                  context={"form": form,
+                           "failed_login": True})
 
 def thanks(request):
     # return HttpResponse("Thanks for login")

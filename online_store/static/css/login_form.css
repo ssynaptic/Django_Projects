@@ -1,28 +1,115 @@
+:root {
+  --background: #141d2b;
+  --form-background: #1a2332;
+  /* --main-message-background: #2b3952; */
+  --sunmit-button-normal: #9eec02;
+  --sunmit-button-hovered: #85c703;
+  --white: #ffffff;
+  --black: #000000;
+}
+
 * {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
 }
 
 html body {
 	display: flex;
-	/* flex-direction: row; */
 	align-items: center;
-	text-align: center;
+	/* text-align: center; */
 	justify-content: center;
+	background-color: var(--background);
+}
+
+div.form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: left;
+	background-color: var(--form-background);
+	width: 20%;
+	margin-top: 10%;
+}
+
+div.main-message-container {
+	background: #000000 url("/static/img/main_message_background.jpg") no-repeat;
+	opacity: 0.5;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--white);
+	width: 100%;
+	height: 100px;
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+
+p.main-message {
+	opacity: 1;
+	line-height: 30px;
+}
+form.main-form {
+	background-color: var(--form-background);
 }
 
 p.input-label {
+	font-family: "Fira Code";
+	font-size: 12px;
+	line-height: normal;
 	margin: 0;
 	padding: 0;
-	color: red;
+	color: var(--white);
+	display: inline-block;
 }
 
 input.input-widget {
+	color: var(--white);
+	background-color: #111927;
+	line-height: normal;
+	text-align: left;
+	display: inline-block;
+	width: 60%;
 	margin: 0;
-	padding: 0;
-	text-align: center;
+	padding: 10;
 }
 
-input.input-widget::placeholder {
-	text-align: center;
+input.input-widget:focus {
+	color: var(--white);
+	background-color: #111927;
+}
+
+input.input-widget::selection {
+	background-color: #0052af;
+}
+
+input.submit-button {
+	border-width: 0px;
+	border-color: var(--sunmit-button-normal);
+	border-radius: 2px;
+	color: var(--black);
+	background-color: var(--sunmit-button-normal);
+	transition: all 200ms ease-out;
+	width: 100%;
+	height: 20%;
+	font-family: "Fira Code";
+	font-size: 15px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+input.submit-button:focus {
+	color: var(--black);
+	background-color: var(--sunmit-button-hovered);
+}
+input.submit-button:hover {
+	background-color: var(--sunmit-button-hovered);
+	color: var(--black);
+}
+
+br {
+	margin: 0;
+	padding: 0;
 }

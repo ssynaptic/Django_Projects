@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (get_login_data,
                     get_signup_data)
-app_name = "accounts"
+app_name = "accounts-app"
 urlpatterns = [
     path('login/', get_login_data, name='login'),
     path('signup/', get_signup_data, name='signup')

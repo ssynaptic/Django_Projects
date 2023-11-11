@@ -19,10 +19,10 @@ from django.urls import (path,
                          include)
 from .views import init_page
 
-app_name = 'main_app'
+app_name = 'main-app'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', init_page, name='init-page'),
-    path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('home/', include('home.urls', namespace='home')),
+    path('accounts/', include('accounts.urls', namespace='accounts-app')),
+    path('home/', include('home.urls', namespace='home-app')),
 ]

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import (HttpResponseRedirect,
                          HttpResponse)
+from django.urls import reverse_lazy
 from .forms import (LogInForm,
                     SignUpForm)
 from .models import User
@@ -11,9 +12,12 @@ def get_login_data(request):
         form = LogInForm(request.POST)
 
         if form.is_valid():
-            print(form.cleaned_data)
-            if User.objects.filter(username=form.cleaned_data["username"], password=form.cleaned_data["password"]).exists():
-                return HttpResponseRedirect("/home/init")
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user_object = User.objects.filter(username=username, password=password).first()
+            if user_object:
+                pk = user_object.id
+                return HttpResponseRedirect(reverse_lazy("home-app:welcome", kwargs={"pk": pk}))
 
     else:
         form = LogInForm()
@@ -33,11 +37,15 @@ def get_signup_data(request):
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
 
-            User.objects.create(first_name=first_name,
-                                last_name=last_name,
-                                username=username,
-                                password=password)
-            return HttpResponseRedirect("/home/registered")
+            if User.objects.filter(username=username, password=password).exists():
+                return HttpResponse("There is another user with the same username and password")
+
+            else:
+                User.objects.create(first_name=first_name,
+                                    last_name=last_name,
+                                    username=username,
+                                    password=password)
+                return HttpResponseRedirect(reverse_lazy("accounts-app:login"))
 
     else:
         form = SignUpForm()

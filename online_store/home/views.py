@@ -5,5 +5,7 @@ from django.http import HttpResponse
 def init(request):
     return HttpResponse("You are on the init page of the home app")
 
-def registered(request):
-    return HttpResponse("You are now registered congratulations")
+def welcome(request, pk):
+    # return HttpResponse(f"Your id is: {pk}")
+    return render(request=request,
+                  template_name="welcome_page.html")

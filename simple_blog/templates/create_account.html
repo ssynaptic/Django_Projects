@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Create Account
+		</title>
+	</head>
+	<body>
+		<strong>
+			This is the form to create an account on our blog
+		</strong>
+		<hr>
+		<div class="creation-form-container">
+			<form action="{% url 'users-app:create' %}" method="POST">
+			{% csrf_token %}
+			{% for field in form %}
+				<p class="creation-form-field-label">
+					{{ field.label }}
+				</p>
+				<br>
+				{{ field }}
+				<br>
+			{% endfor %}
+				<input type="submit" value="Create Account" />
+			</form>
+		</div>
+	</body>
+</html>

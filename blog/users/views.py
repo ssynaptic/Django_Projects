@@ -59,14 +59,6 @@ class LogInView(View):
             return HttpResponseRedirect(reverse_lazy("home-app:index"))
         else:
             return HttpResponse("Failed to login")
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     form = LogInForm()
-    #     context["form"] = form
-    #     return context
-    
-# def create_proof(request):
-#     return HttpResponse("This will be the login page")
 
 def success(request):
     return HttpResponse("Account Created Successfully")

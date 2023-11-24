@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+  <title>
+    Home Index
+  </title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+{% endblock head %}
+
+{% block content %}
+  <strong>
+    welcome user, this is the home page, here you can see your feed
+  </strong>
+  <a href="{% url 'home-app:logout-view' %}">
+    Log Out
+  </a>
+{% endblock content %}

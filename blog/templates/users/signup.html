@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <title>
+    Sign Up
+  </title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+{% endblock head %}
+
+{% block content %}
+  <div class="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    </form>
+  </div>
+{% endblock content %}

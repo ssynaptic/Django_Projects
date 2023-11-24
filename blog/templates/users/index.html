@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+  <title>
+    Index Page
+  </title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+  {% include 'include/nav-bar.html' %}
+  <h1>
+    This is the index page
+  </h1>
+  <p>
+    You can go to:
+  </p>
+  <div class="row">
+    <div class="col">
+      <a class="" href="{% url 'users-app:create' %}">
+        Create Account
+      </a>
+      <a class="" href="{% url 'users-app:access' %}">
+        Access Account
+      </a>
+    </div>
+  </div>
+{% endblock content %}

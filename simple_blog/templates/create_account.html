@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -5,23 +6,36 @@
 			Create Account
 		</title>
 	</head>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 	<body>
 		<strong>
 			This is the form to create an account on our blog
 		</strong>
 		<hr>
-		<div class="creation-form-container">
+		<div class="creation-form-container container">
 			<form action="{% url 'users-app:create' %}" method="POST">
 			{% csrf_token %}
 			{% for field in form %}
-				<p class="creation-form-field-label">
-					{{ field.label }}
-				</p>
-				<br>
-				{{ field }}
-				<br>
+				<div class="row">
+					<div class="col">
+						<p class="creation-form-field-label">
+							{{ field.label }}
+						</p>
+					</div>
+				</div>
+				<!-- <br> -->
+				<div class="row">
+					<div class="col">
+						{{ field }}
+					</div>
+				</div>
+				<!-- <br> -->
 			{% endfor %}
-				<input type="submit" value="Create Account" />
+				<div class="row">
+					<div class="col">
+						<input type="submit" value="Create Account" />
+					</div>
+				</div>
 			</form>
 		</div>
 	</body>

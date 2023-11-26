@@ -1,21 +1,32 @@
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
-from django.views.generic.base import TemplateView
+from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.shortcuts import render
+
+from .models import Post, Comment
 
 from .utils import is_user_logged_in
 
 # Create your views here.
-@login_required(login_url="/accounts/access")
-def index(request):
-    print(request.user.is_authenticated)
-    return HttpResponse("welcome user, this is the home page, here you can see your feed")
+class IndexView(LoginRequiredMixin, View):
+    def get(self, request):
+        context = {}
+        posts_queryset = Post.objects.all()
 
-class IndexView(LoginRequiredMixin, TemplateView):
-    template_name = "home/index.html"
+        if posts_queryset.exists():
+            context.update({"there_are_posts": True})
+            context.update({"queryset": posts_queryset})
+        else:
+            context.update({"there_are_products": False})
+        return render(request=request,
+                      template_name="home/index.html",
+                      context=context)
+    
+    def post(self, request):
+        pass
 
 @login_required(login_url="/accounts/access")
 def logout_user(request):

@@ -8,7 +8,7 @@
 {% endblock head %}
 
 {% block content %}
-  <form method="POST">
+  <form action="{% url 'users-app:login-view' %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" name="submit">

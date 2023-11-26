@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class UserAccount(User):
-    pass
-
     def __str__(self):
         return f"{self.id} - {self.username}"
 

@@ -6,7 +6,8 @@
   <title>
     Home Index
   </title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}"> {% endcomment %}
 {% endblock head %}
 
 {% block content %}
@@ -16,4 +17,23 @@
   <a href="{% url 'home-app:logout-view' %}">
     Log Out
   </a>
+  {% if there_are_posts %}
+    {% comment %} <script>
+      swal({
+        title: "Success",
+        text: "There are posts, go",
+        icon: "success",
+      });
+    </script> {% endcomment %}
+    are posts
+
+  {% else %}
+    <script>
+      swal({
+        title: "No Posts",
+        text: "There seem to be no posts, come back later",
+        icon: "error",
+      });
+    </script>
+  {% endif %}
 {% endblock content %}

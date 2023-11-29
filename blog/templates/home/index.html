@@ -3,29 +3,46 @@
 {% load static %}
 
 {% block head %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
     Home Index
   </title>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}"> {% endcomment %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home-index.css' %}">
+
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/nav-bar.css' %}">
+
 {% endblock head %}
 
 {% block content %}
-  <strong>
+  {% include 'include/nav-bar.html' %}
+  <br>
+  <p>
     welcome user, this is the home page, here you can see your feed
-  </strong>
+  </p>
   <a href="{% url 'home-app:logout-view' %}">
     Log Out
   </a>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   {% if there_are_posts %}
-    {% comment %} <script>
-      swal({
-        title: "Success",
-        text: "There are posts, go",
-        icon: "success",
-      });
-    </script> {% endcomment %}
-    are posts
+    {% for post in queryset %}
+      <div class="card post-container">
+        <div class="card-body">
+          <p class="card-title post-title">
+            <a href="">@{{ post.owners_profile.user_account.username }}</a>&nbsp;({{ post.owners_profile.user_account.last_name }}, {{ post.owners_profile.user_account.first_name }})
+          </p>
+          <p class="card-text post-content">
+            {{ post.post_content }}
+          </p>
+          <p class="card-text">
+            Views: {{ post.views }}
+          </p>
+        </div>
+      </div>
+    {% endfor %}
 
   {% else %}
     <script>

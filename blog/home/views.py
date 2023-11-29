@@ -2,11 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 from django.views.generic.base import View
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
 from django.shortcuts import render
 
-from .models import Post, Comment
+from .models import Post
 
 from .utils import is_user_logged_in
 
@@ -27,6 +27,14 @@ class IndexView(LoginRequiredMixin, View):
     
     def post(self, request):
         pass
+    
+class SearchView(LoginRequiredMixin, View):
+    def get(self, request):
+        pass
+    
+    def post(self, request):
+        query = request.POST["query"]
+        return HttpResponse(f"Your query is {query}")
 
 @login_required(login_url="/accounts/access")
 def logout_user(request):

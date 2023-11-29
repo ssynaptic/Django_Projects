@@ -1,0 +1,14 @@
+body {
+  background-color: #161A30;
+}
+
+div.post-container {
+  background-color: #31304D;
+}
+p.post-title {
+  color: #B6BBC4;
+}
+
+p.post-content {
+  color: #F0ECE5;
+}

@@ -8,6 +8,5 @@ class UserAccount(User):
 
 class UserProfile(models.Model):
     user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
-
     def __str__(self):
         return f"{self.user_account.last_name}, {self.user_account.first_name}"

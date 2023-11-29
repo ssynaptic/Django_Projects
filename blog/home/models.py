@@ -4,13 +4,16 @@ from users.models import UserProfile
 # Create your models here.
 class Post(models.Model):
     owners_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    post_content = models.TextField(blank=False,
+                                    null=False,
+                                    verbose_name="Post Content")
     views = models.IntegerField(blank=False,
                                 default=0,
                                 null=False,
                                 verbose_name="Views")
     
     def __str__(self):
-        return str(self.id)
+        return f"{self.owners_profile.user_account.username} - {self.id}"
     # post_comments = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name="post_comments")
 
 class Comment(models.Model):

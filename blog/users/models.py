@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 class UserAccount(User):
     def __str__(self):
         return f"{self.id} - {self.username}"
+    
+    class Meta:
+        ordering = ["username"]
 
 class UserProfile(models.Model):
     user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE)

@@ -11,9 +11,17 @@ class Post(models.Model):
                                 default=0,
                                 null=False,
                                 verbose_name="Views")
+
+    def get_all_usernames(self):
+        usernames = self.owners_profile.objects.values_list("username")
+        return usernames
+        # print(usernames)
     
     def __str__(self):
         return f"{self.owners_profile.user_account.username} - {self.id}"
+
+    class Meta:
+        ordering = ["owners_profile"]
     # post_comments = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name="post_comments")
 
 class Comment(models.Model):

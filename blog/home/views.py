@@ -10,6 +10,8 @@ from .models import Post
 
 from .utils import is_user_logged_in
 
+from users.models import UserAccount
+
 # Create your views here.
 class IndexView(LoginRequiredMixin, View):
     def get(self, request):
@@ -35,6 +37,13 @@ class SearchView(LoginRequiredMixin, View):
     def post(self, request):
         query = request.POST["query"]
         return HttpResponse(f"Your query is {query}")
+    
+class UserView(LoginRequiredMixin, View):
+    def get(self, request, username):
+        return HttpResponse(f"Your username is {username}")
+
+    def post(self, request):
+        pass
 
 @login_required(login_url="/accounts/access")
 def logout_user(request):

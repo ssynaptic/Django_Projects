@@ -32,13 +32,15 @@ class SignUpForm(forms.ModelForm):
 
 class LogInForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
-
+        "class": "form-control form-control-sm",
+        "aria-describedby": "Username of the account"
     }),
     label="Username",
     max_length=255)
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-
+        "class": "form-control form-control-sm",
+        "aria-describedby": "Password of the account"
     }),
     label="Password",
     max_length=255)

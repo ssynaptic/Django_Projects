@@ -12,7 +12,14 @@
   <div class="">
     <form action="{% url 'users-app:signup-view' %}" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">
+        {{ field.label_tag }}
+      </label>
+      <br>
+      {{ field }}
+      <br>
+    {% endfor %}
     <input type="submit" class="btn btn-primary" value="Submit" />
     </form>
   </div>

@@ -1,16 +1,7 @@
 {% load static %}
-
-{% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> {% endcomment %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<script src="{% static 'js/bootstrap.js' %}"></script>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home-app:index-view' %}">
-      <img src="{% static 'img/blog-icon.png' %}" width="20" height="20">
-      Home
-    </a>
+    <a class="navbar-brand" href="{% url 'home-app:index-view' %}"><img src="{% static 'img/blog-icon.png' %}" width="20" height="20"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,32 +10,28 @@
         {% comment %} <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li> {% endcomment %}
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
-        </li>
+        </li> {% endcomment %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            <img src="{% static 'img/default-profile-photo.png' %}" width="20" height="20" alt="Profile Photo" />
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="{% url 'home-app:user-view' username=user.get_username %}">Your Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'home-app:logout-view' %}">Log Out</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
+        </li> {% endcomment %}
       </ul>
-      <form class="d-flex" action="{% url 'home-app:search-view' %}" method="POST">
-        {% csrf_token %}
-        <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <input class="btn btn-outline-success mx-3" type="submit" value="Search" />
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
-      <a class="me-1" href="#">
-        <img src="{% static 'img/default-profile-photo.png' %}" width="40" height="40">
-      </a>
     </div>
   </div>
 </nav>

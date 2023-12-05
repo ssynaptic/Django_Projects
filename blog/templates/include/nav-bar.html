@@ -1,37 +1,37 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home-app:index-view' %}"><img src="{% static 'img/blog-icon.png' %}" width="20" height="20"></a>
+    {% comment %} <a class="navbar-brand" href="{% url 'home-app:index-view' %}"><img src="{% static 'img/blog-icon.png' %}" width="20" height="20"></a> {% endcomment %}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        {% comment %} <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li> {% endcomment %}
-        {% comment %} <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li> {% endcomment %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{% static 'img/default-profile-photo.png' %}" width="20" height="20" alt="Profile Photo" />
+            <img src="{% static 'img/default-profile-photo.png' %}" width="25" height="25" alt="Profile Photo" />
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{% url 'home-app:user-view' username=user.get_username %}">Your Profile</a></li>
-            <li><a class="dropdown-item" href="{% url 'home-app:logout-view' %}">Log Out</a></li>
-            <li><hr class="dropdown-divider"></li>
+            {% if user.is_authenticated %}
+              <li><a class="dropdown-item" href="{% url 'home-app:user-view' username=user.get_username %}">Your Profile</a></li>
+            {% endif %}
             <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'home-app:logout-view' %}">Log Out</a></li>
           </ul>
         </li>
-        {% comment %} <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li> {% endcomment %}
+        <li class="nav-item">
+          <a href="{% url 'home-app:create-post-view' %}" class="nav-link active">
+            Create
+          </a>
+        </li>
+        <li class="nav-item">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>

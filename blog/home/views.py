@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 
 from .models import Post
+from users.models import UserAccount, UserProfile
 
 from .utils import is_user_logged_in
 
@@ -17,10 +18,17 @@ class IndexView(LoginRequiredMixin, View):
     def get(self, request):
         context = {}
         posts_queryset = Post.objects.all()
-
         if posts_queryset.exists():
+            posts = []
+            for post in posts_queryset:
+                first_name = post.owners_profile.user_account.first_name
+                last_name = post.owners_profile.user_account.last_name
+                username = post.owners_profile.user_account.username
+                post_content = post.post_content
+                views = post.views
+                posts.append((first_name, last_name, username, post_content, views))
             context.update({"there_are_posts": True})
-            context.update({"queryset": posts_queryset})
+            context.update({"data": posts})
         else:
             context.update({"there_are_products": False})
         return render(request=request,
@@ -40,7 +48,22 @@ class SearchView(LoginRequiredMixin, View):
     
 class UserView(LoginRequiredMixin, View):
     def get(self, request, username):
-        return HttpResponse(f"Your username is {username}")
+        user_account = UserAccount.objects.get(username=username)
+        user_profile = UserProfile.objects.get(user_account=user_account)
+        print(user_profile)
+        context = {}
+
+        return render(request=request,
+                      template_name="home/user.html",
+                      context=context)
+        # return HttpResponse(f"Your username is {username}")
+
+    def post(self, request):
+        pass
+
+class CreatePostView(LoginRequiredMixin, View):
+    def get(self, request):
+        return HttpResponse("Here you will can create your posts")
 
     def post(self, request):
         pass

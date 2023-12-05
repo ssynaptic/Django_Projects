@@ -12,6 +12,11 @@ class Post(models.Model):
                                 null=False,
                                 verbose_name="Views")
 
+    def get_all_usernames(self):
+        usernames = self.owners_profile.objects.values_list("username")
+        return usernames
+        # print(usernames)
+    
     def __str__(self):
         return f"{self.owners_profile.user_account.username} - {self.id}"
 

@@ -8,45 +8,37 @@
   <title>
     Home Index
   </title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/home-index.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  {# Begin fonts block #}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-  {# End fonts block#}
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+  {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}"> {% endcomment %}
+
 {% endblock head %}
 
 {% block content %}
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   {% include 'include/nav-bar.html' %}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   {% if there_are_posts %}
-    {# Begin code to generate the cards of posts #}
-    <div class="container justify-content-center">
-      {% for post in data %}
-        <div class="card col-md-5 mt-2 post-container">
-          <div class="card-body">
-            <p class="card-title mb-3 user-name">
-              <img src="{% static 'img/default-profile-photo.png' %}" alt="User Photo Profile" width="25" height="25">
-              <a href="{% url 'home-app:user-view' username=post.2 %}" class="user-profile-link">
-                @{{ post.0 }}
-              </a>
-              ({{ post.0 }}, {{ post.1 }})
-            </p>
-            <br>
-            <p class="card-text post-content">
-              {{ post.3 }}
-            </p>
-            <hr class="content-separator">
-            <p class="post-views">
-              Views:&nbsp;{{ post.4 }}
-            </p>
-          </div>
+    {% for post in queryset %}
+      <div class="card post-container">
+        <div class="card-body">
+          <p class="card-title post-title">
+            {% comment %} <img src="{% static 'img/default-profile-photo.png' %}" width="20" height="20" alt="User Photo Profile"/> {% endcomment %}
+            <a href="{% url 'home-app:user-view' username=post.owners_profile.user_account.username %}">
+              <img src="{% static 'img/default-profile-photo.png' %}" width="20" height="20" alt="User Photo Profile"/>&nbsp;@{{ post.owners_profile.user_account.username }}</a>&nbsp;
+            ({{ post.owners_profile.user_account.last_name }}, {{ post.owners_profile.user_account.first_name }})
+          </p>
+          <p class="card-text post-content">
+            {{ post.post_content }}
+          </p>
+          <p class="card-text post-views">
+            Views: {{ post.views }}
+          </p>
         </div>
-      {% endfor %}
-    </div>
-    {# End code to generate the cards of posts #}
+      </div>
+    {% endfor %}
+
   {% else %}
     <script>
       swal({
@@ -57,5 +49,4 @@
     </script>
   {% endif %}
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'js/right-side-bar.js' %}"></script>
 {% endblock content %}

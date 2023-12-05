@@ -6,10 +6,12 @@
   <title>
     Index Page
   </title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
 {% endblock head %}
 
 {% block content %}
+
+  {% include 'include/nav-bar.html' %}
   <h1>
     This is the index page
   </h1>

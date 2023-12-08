@@ -7,11 +7,11 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 
 from .models import Post
-from users.models import UserAccount, UserProfile
+from users.models import UserAccount#, UserProfile
 
 from .utils import is_user_logged_in
 
-from users.models import UserAccount
+from .forms import CreatePostForm
 
 # Create your views here.
 class IndexView(LoginRequiredMixin, View):
@@ -21,9 +21,9 @@ class IndexView(LoginRequiredMixin, View):
         if posts_queryset.exists():
             posts = []
             for post in posts_queryset:
-                first_name = post.owners_profile.user_account.first_name
-                last_name = post.owners_profile.user_account.last_name
-                username = post.owners_profile.user_account.username
+                first_name = post.owners_profile.first_name
+                last_name = post.owners_profile.last_name
+                username = post.owners_profile.username
                 post_content = post.post_content
                 views = post.views
                 posts.append((first_name, last_name, username, post_content, views))
@@ -49,8 +49,7 @@ class SearchView(LoginRequiredMixin, View):
 class UserView(LoginRequiredMixin, View):
     def get(self, request, username):
         user_account = UserAccount.objects.get(username=username)
-        user_profile = UserProfile.objects.get(user_account=user_account)
-        print(user_profile)
+        # user_profile = UserProfile.objects.get(user_account=user_account)
         context = {}
 
         return render(request=request,
@@ -63,10 +62,20 @@ class UserView(LoginRequiredMixin, View):
 
 class CreatePostView(LoginRequiredMixin, View):
     def get(self, request):
-        return HttpResponse("Here you will can create your posts")
+        form = CreatePostForm()
+        context = {"form": form}
+        return render(request=request,
+                      template_name="home/create-post.html",
+                      context=context)
 
     def post(self, request):
-        pass
+        form = CreatePostForm(request.POST)
+        if form.is_valid():
+            ua = UserAccount.objects.get(username=request.user.username,
+                                         password=request.user.password)
+            Post.objects.create(owners_profile=ua,
+                                post_content=form.cleaned_data["post_content"])
+            return HttpResponseRedirect(reverse_lazy("home-app:index-view"))
 
 @login_required(login_url="/accounts/access")
 def logout_user(request):

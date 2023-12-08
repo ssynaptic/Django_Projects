@@ -3,13 +3,14 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class UserAccount(User):
+    profile_picture = models.FileField()
     def __str__(self):
         return f"{self.id} - {self.username}"
     
     class Meta:
         ordering = ["username"]
 
-class UserProfile(models.Model):
-    user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
-    def __str__(self):
-        return f"{self.user_account.last_name}, {self.user_account.first_name}"
+# class UserProfile(models.Model):
+#     user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
+#     def __str__(self):
+#         return f"{self.user_account.last_name}, {self.user_account.first_name}"

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>Create post</title>
+{% endblock head %}
+
+{% block content %}
+  <p>
+    Here will be all that is needed to create a post
+  </p>
+  <form action="{% url 'home-app:create-post-view' %}" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+      <br>
+      {{ field }}
+      <br>
+    {% endfor %}
+    <input type="submit" value="Create Post">
+  </form>
+{% endblock content %}

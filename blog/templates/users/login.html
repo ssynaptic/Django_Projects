@@ -5,29 +5,82 @@
     Log In
   </title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <style>
+    body {
+      background-color: #141d2b;
+    }
+    div.form-container {
+      background-color: #1a2332;
+    }
+    label.input-label {
+      color: #b3c2e5;
+      font-size: 20px;
+    }
+    input.form-input {
+      color: #ffffff;
+      background-color: #111927;
+    }
+    input.form-input:focus {
+      color: #ffffff;
+      background-color: #111927;
+    }
+    input.submit-button {
+      background-color: #9ae800;
+    }
+  </style>
 {% endblock head %}
 
 {% block content %}
-  <div class="card mt-3">
-    <div class="container w-50 h-90">
-      <h1>
-        Log In
-      </h1>
-      <form action="{% url 'users-app:login-view' %}" method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-          <div class="mb-3 mt-2">
-            <label class="form-label" for="{{ field.id_for_label }}">
-              {{ field.label_tag }}
-            </label>
-            {{ field }}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {% if login_failed %}
+  <script>
+    swal({
+      title: "Error",
+      text: "Login failed, please verify your username and password",
+      icon: "warning",
+    });
+  </script>
+  {% endif %}
+  <section class="vh-100">
+    <div class="container py-2 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card form-container" style="border-radius: 1rem;">
+            <div class="card-body p-4 text-center">
+
+              <div class="mb-2 mt-md-2 pb-4">
+  
+                <h2 class="fw-bold mb-2 text-uppercase text-white">Login</h2>
+
+                <form action="{% url 'users-app:login-view' %}" method="POST">
+                  {% csrf_token %}
+  
+                  <div class="form-outline form-white mb-2">
+                    <label class="form-label input-label" for="form.username.id_for_label">{{ form.username.label_tag }}</label>
+                    {{ form.username }}
+                  </div>
+    
+                  <div class="form-outline form-white mb-3">
+                    <label class="form-label input-label" for="{{ form.password.id_for_label }}">{{ form.password.label_tag }}</label>
+                    {{ form.password }}
+                  </div>
+    
+                  {% comment %} <p class="small mb-1 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p> {% endcomment %}
+    
+                  <input class="btn btn-lg px-5 text-dark submit-button" value="Log In" type="submit">
+                
+                </form>
+              </div>
+  
+              <div>
+                <p class="text-white">Don't have an account? <a href="{% url 'users-app:signup-view' %}" class="text-white-50 fw-bold">Sign Up</a>
+                </p>
+              </div>
+  
+            </div>
           </div>
-        {% endfor %}
-        <div>
-          <input class="btn btn-primary" type="submit" value="Log In">
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </section>
 {% endblock content %}

@@ -5,9 +5,7 @@
 {% block head %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    Home Index
-  </title>
+  <title>Home Index</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/home-index.css' %}">
 
@@ -29,9 +27,7 @@
           <div class="card-body">
             <p class="card-title mb-3 user-name">
               <img src="{% static 'img/default-profile-photo.png' %}" alt="User Photo Profile" width="25" height="25">
-              <a href="{% url 'home-app:user-view' username=post.2 %}" class="user-profile-link">
-                @{{ post.0 }}
-              </a>
+              <a href="{% url 'home-app:user-view' username=post.2 %}" class="user-profile-link">@{{ post.2 }}</a>
               ({{ post.0 }}, {{ post.1 }})
             </p>
             <br>
@@ -57,5 +53,4 @@
     </script>
   {% endif %}
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'js/right-side-bar.js' %}"></script>
 {% endblock content %}

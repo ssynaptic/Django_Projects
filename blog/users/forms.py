@@ -3,25 +3,25 @@ from users.models import UserAccount
 
 class SignUpForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={
-
+        "class": "form-control form-control-lg form-input"
     }),
     label="First Name",
     max_length=255)
 
     last_name = forms.CharField(widget=forms.TextInput(attrs={
-
+        "class": "form-control form-control-lg form-input"
     }),
     label="Last Name",
     max_length=255)
 
     username = forms.CharField(widget=forms.TextInput(attrs={
-
+        "class": "form-control form-control-lg form-input"
     }),
     label="Username",
     max_length=255)
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-
+        "class": "form-control form-control-lg form-input"
     }),
     label="Password",
     max_length=255)

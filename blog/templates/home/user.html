@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block head %}
   <title>
-    {{ user.get_username }}
+    {{ user_account.first_name }}&#160;{{ user_account.last_name }}
   </title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home-user.css' %}">
 {% endblock head %}
 
 {% block content %}
-  hello user
+  {% include 'include/nav-bar.html' %}
+
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 {% endblock content %}

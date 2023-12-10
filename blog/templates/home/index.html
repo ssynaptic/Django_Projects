@@ -3,8 +3,6 @@
 {% load static %}
 
 {% block head %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home Index</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/home-index.css' %}">
@@ -21,22 +19,22 @@
   {% include 'include/nav-bar.html' %}
   {% if there_are_posts %}
     {# Begin code to generate the cards of posts #}
-    <div class="container justify-content-center">
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
       {% for post in data %}
         <div class="card col-md-5 mt-2 post-container">
           <div class="card-body">
-            <p class="card-title mb-3 user-name">
+            <p class="d-inline-flex mb-3 card-title user-name">
               <img src="{% static 'img/default-profile-photo.png' %}" alt="User Photo Profile" width="25" height="25">
-              <a href="{% url 'home-app:user-view' username=post.2 %}" class="user-profile-link">@{{ post.2 }}</a>
-              ({{ post.0 }}, {{ post.1 }})
+              <a href="{% url 'home-app:user-view' username=post.2 %}" class="mx-1 user-profile-link">&#64;{{ post.2 }}</a>
+              &#40;{{ post.0 }}&#44;&#32;{{ post.1 }}&#41;
             </p>
-            <br>
+            <hr class="content-separator mb-3">
             <p class="card-text post-content">
               {{ post.3 }}
             </p>
-            <hr class="content-separator">
+            <hr class="content-separator mt-3">
             <p class="post-views">
-              Views:&nbsp;{{ post.4 }}
+              {{ post.4 }}&#160;Views&#160;&#124;&#32;Posted&#32;at&#32;{{ post.5 }}
             </p>
           </div>
         </div>

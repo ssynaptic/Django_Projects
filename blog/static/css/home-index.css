@@ -45,8 +45,8 @@ p.post-content {
 }
 
 hr.content-separator {
-  margin: 5px 0 5px 0;
-  color: var(--user-link-hover-color);
+  /* margin: 5px 0 5px 0; */
+  background-color: var(--user-link-hover-color);
 }
 p.post-views {
   font-family: 'Inter', sans-serif;

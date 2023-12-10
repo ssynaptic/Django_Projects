@@ -5,20 +5,28 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.shortcuts import redirect
 
-from .forms import SignUpForm, LogInForm, UploadFileForm
-from .utils import handle_uploaded_file
+from .forms import SignUpForm, LogInForm
 
-from .models import UserAccount#, UserProfile
+from .models import UserAccount
 
 # Create your views here.
-class IndexView(TemplateView):
-    template_name = "users/index.html"
 class SignUpView(View):
     def get(self, request):
         form = SignUpForm()
+        top_text = "Sign Up"
+        bottom_text = "Already have an account? you can"
+        go_to = "Log In"
+        form_link = reverse_lazy("users-app:signup-view")
+        link = reverse_lazy("users-app:login-view")
         return render(request=request,
-                      template_name="users/signup.html",
-                      context={"form": form})
+                      template_name="users/creation-and-access.html",
+                      context={"form": form,
+                               "top_text": top_text,
+                               "bottom_text": bottom_text,
+                               "go_to": go_to,
+                               "form_link": form_link,
+                               "link": link
+                      })
     def post(self, request):
         first_name = request.POST["first_name"]
         last_name = request.POST["last_name"]
@@ -28,19 +36,26 @@ class SignUpView(View):
                                         last_name=last_name,
                                         username=username,
                                         password=password)
-        # ua = UserAccount.objects.get(first_name=first_name,
-        #                              last_name=last_name,
-        #                              username=username)
-        # UserProfile.objects.create(user_account=ua)
-        return HttpResponseRedirect(redirect_to=reverse_lazy("home-app:index-view"))
+        return HttpResponseRedirect(redirect_to=reverse_lazy("users-app:login-view"))
 
 class LogInView(View):
     def get(self, request):
         form = LogInForm()
+        top_text = "Log In"
+        bottom_text = "Don't have an account? you can"
+        go_to = "Sign Up"
+        form_link = reverse_lazy("users-app:login-view")
+        link = reverse_lazy("users-app:signup-view")
         return render(request=request,
-                      template_name="users/login.html",
-                      context={"form": form})
-    
+                      template_name="users/creation-and-access.html",
+                      context={"form": form,
+                               "top_text": top_text,
+                               "bottom_text": bottom_text,
+                               "go_to": go_to,
+                               "form_link": form_link,
+                               "link": link
+                      })
+
     def post(self, request):
         username = request.POST["username"]
         password = request.POST["password"]
@@ -52,17 +67,20 @@ class LogInView(View):
             return HttpResponseRedirect(reverse_lazy("home-app:index-view"))
         else:
             form = LogInForm()
+            top_text = "Log In"
+            bottom_text = "Don't have an account? you can"
+            go_to = "Sign Up"
+            form_link = reverse_lazy("users-app:login-view")
+            link = reverse_lazy("users-app:login-view")
             context = {
                 "form": form,
-                "login_failed": True
+                "login_failed": True,
+                "top_text": top_text,
+                "bottom_text": bottom_text,
+                "go_to": go_to,
+                "form_link": form_link,
+                "link": link
             }
             return render(request=request,
-                          template_name="users/login.html",
+                          template_name="users/creation-and-access.html",
                           context=context)
-
-def upload_file(request):
-    handle_uploaded_file()
-    # if request.method == "POST":
-        # form = UploadFileForm
-# def success(request):
-#     return HttpResponse("Account Created Successfully")

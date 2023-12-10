@@ -11,7 +11,7 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{% static 'img/default-profile-photo.png' %}" width="25" height="25" alt="Profile Photo" />
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             {% if user.is_authenticated %}
               <li><a class="dropdown-item" href="{% url 'home-app:user-view' username=user.get_username %}">Your Profile</a></li>
             {% endif %}
@@ -26,10 +26,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          <div class="d-inline-flex">
+            <input class="form-control px-2 me-2" type="text" name="query" placeholder="Search something">
+            <input class="btn btn-outline-success" type="submit" value="Search">
+          </div>
         </li>
       </ul>
     </div>

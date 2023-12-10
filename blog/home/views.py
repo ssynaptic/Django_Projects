@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 
 from .models import Post
-from users.models import UserAccount#, UserProfile
+from users.models import UserAccount
 
 from .utils import is_user_logged_in
 
@@ -26,7 +26,10 @@ class IndexView(LoginRequiredMixin, View):
                 username = post.owners_profile.username
                 post_content = post.post_content
                 views = post.views
-                posts.append((first_name, last_name, username, post_content, views))
+                date = post.date_and_time_published.strftime("%d/%m/%y")
+                posts.append((first_name, last_name,
+                              username, post_content,
+                              views, date))
             context.update({"there_are_posts": True})
             context.update({"data": posts})
         else:
@@ -34,32 +37,22 @@ class IndexView(LoginRequiredMixin, View):
         return render(request=request,
                       template_name="home/index.html",
                       context=context)
-    
+
     def post(self, request):
         pass
-    
+
 class SearchView(LoginRequiredMixin, View):
-    def get(self, request):
-        pass
-    
     def post(self, request):
         query = request.POST["query"]
         return HttpResponse(f"Your query is {query}")
-    
+
 class UserView(LoginRequiredMixin, View):
     def get(self, request, username):
         user_account = UserAccount.objects.get(username=username)
-        # user_profile = UserProfile.objects.get(user_account=user_account)
-        context = {}
-
+        context = {"user_account": user_account}
         return render(request=request,
                       template_name="home/user.html",
                       context=context)
-        # return HttpResponse(f"Your username is {username}")
-
-    def post(self, request):
-        pass
-
 class CreatePostView(LoginRequiredMixin, View):
     def get(self, request):
         form = CreatePostForm()
